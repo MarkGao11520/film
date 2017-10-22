@@ -1,6 +1,4 @@
-# springboot+mybatis+bootstrap实现简单电影搜索demo Edit
-  Add topics
-
+# springboot+mybatis+bootstrap实现简单电影搜索demo
 
 ## 测试，普通环境启动
 配置文件为application.yml。
