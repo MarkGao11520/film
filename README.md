@@ -6,7 +6,7 @@
 ### 2.打开src/main/resources下的application-dev.yml修改数据库（数据库文件在```src/main/resource/sql里```）
 ### 3.修改src/main/resources/static/film/js下的url.js 中的ip/域名为自己的
 ### 3.启动SpringBootMybatisWithRedisApplication
-### 4.浏览器访问localhost:9999/
+### 4.浏览器访问localhost:9999/static/film/html/film_list.html
 
 ## docker 部署
 ```
