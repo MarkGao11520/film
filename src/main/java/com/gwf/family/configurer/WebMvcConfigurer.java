@@ -114,39 +114,42 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
 //        );
 //    }
 
-//    //解决跨域问题
-//    @Override
-//    public void addCorsMappings(CorsRegistry registry) {
-//        registry.addMapping("/**");
-//    }
+    //解决跨域问题
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedHeaders("*")
+                .allowedMethods("POST, GET, OPTIONS, DELETE,PUT")
+                .allowedOrigins("Authorization,Origin,X-Requested-With,X-File-Name,Content-Type, Accept");
+    }
 
 
     //添加拦截器
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        //接口签名认证拦截器，该签名认证比较简单，实际项目中建议使用Json Web Token代替。
-        if (!StringUtils.contains(env, "dev")) { //开发环境忽略签名认证
-            registry.addInterceptor(new HandlerInterceptorAdapter() {
-
-                @Override
-                public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-                    String sign = request.getParameter("sign");
-                    //验证签名
-                    if (StringUtils.isNotEmpty(sign) && validateSign(request, sign)) {
-                        return true;
-                    } else {
-                        log.warn("签名认证失败，请求接口：{}，请求IP：{}，请求参数：{}",
-                                request.getRequestURI(), getIpAddress(request), JSON.toJSONString(request.getParameterMap()));
-
-                        Result result = new Result();
-                        result.setCode(ResultCode.UNAUTHORIZED).setMessage("签名认证失败");
-                        responseResult(response, result);
-                        return false;
-                    }
-                }
-            });
-        }
-    }
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        //接口签名认证拦截器，该签名认证比较简单，实际项目中建议使用Json Web Token代替。
+//        if (!StringUtils.contains(env, "dev")) { //开发环境忽略签名认证
+//            registry.addInterceptor(new HandlerInterceptorAdapter() {
+//
+//                @Override
+//                public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+//                    String sign = request.getParameter("sign");
+//                    //验证签名
+//                    if (StringUtils.isNotEmpty(sign) && validateSign(request, sign)) {
+//                        return true;
+//                    } else {
+//                        log.warn("签名认证失败，请求接口：{}，请求IP：{}，请求参数：{}",
+//                                request.getRequestURI(), getIpAddress(request), JSON.toJSONString(request.getParameterMap()));
+//
+//                        Result result = new Result();
+//                        result.setCode(ResultCode.UNAUTHORIZED).setMessage("签名认证失败");
+//                        responseResult(response, result);
+//                        return false;
+//                    }
+//                }
+//            });
+//        }
+//    }
 
 
 

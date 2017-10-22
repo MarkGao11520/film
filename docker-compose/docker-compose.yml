@@ -1,0 +1,15 @@
+version: '2'
+services:
+  api:
+    build: ./javaweb
+    ports:
+        - "9090:9090"
+    links:
+        - db
+    depends_on:
+        - db
+
+  db:
+    build: ./mysql
+    ports:
+        - "13306:3306"

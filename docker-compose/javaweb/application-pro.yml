@@ -1,0 +1,62 @@
+spring:
+  # 数据库配置
+  jackson:
+    default-property-inclusion: non_null
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://db/gwf?characterEncoding=utf-8&useSSL=false
+    username: docker
+    password: 123456
+# 服务器配置
+server:
+  port: 9090
+  context-path: /
+
+# mybatis配置
+mybatis:
+  # 配置映射类所在包名
+  # type-aliases-package: com.gwf.family.business.domain
+  # 配置mapper xml文件所在路径，这里是一个数组
+  mapper-locations:
+    - mappers/**/*.xml
+
+mapper:
+    mappers:
+        - com.gwf.family.business.core.mapper.Mapper
+    not-empty: false
+    identity: MYSQL
+
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+logging:
+  level:
+      com.gwf.family: trace
+
+jwt:
+  header: Authorization
+  secret: mySecret
+  expiration: 604800
+  tokenHead: "Bearer "
+  route:
+    authentication:
+      path: auth
+      refresh: refresh
+      register: "auth/register"
+security:
+  basic:
+    enabled: false
+
+#druid:
+#    url: jdbc:mysql://localhost:3306/gwf?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+#    username: root
+#    password: root
+#    initial-size: 1
+#    min-idle: 1
+#    max-active: 20
+#    test-on-borrow: true
+
+
+

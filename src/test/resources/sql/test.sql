@@ -1,0 +1,1 @@
+SELECT count(0) FROM film f LEFT JOIN film_category fc ON f.film_id = fc.film_id LEFT JOIN category c ON fc.category_id = c.category_id LEFT JOIN language l ON f.language_id = l.language_id WHERE 1 = 1 AND c.NAME LIKE '%%' AND (f.description LIKE '%'||'aa'||'%' OR f.title LIKE '%'||'aa'||'%')

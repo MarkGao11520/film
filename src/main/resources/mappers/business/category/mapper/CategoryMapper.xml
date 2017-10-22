@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwf.family.business.category.dao.CategoryRepository">
+    <resultMap id="BaseResultMap" type="com.gwf.family.business.category.entity.Category">
+            <id column="category_id" jdbcType="TINYINT" property="categoryId"/>
+            <result column="name" jdbcType="VARCHAR" property="name"/>
+            <result column="last_update" jdbcType="TIMESTAMP" property="lastUpdate"/>
+    </resultMap>
+
+    <!--<cache type="com.gwf.family.business.core.util.RedisCache"/>-->
+    <select id="findByFilmId" resultMap="BaseResultMap">
+        SELECT *
+        FROM category c LEFT JOIN film_category fc
+            ON c.category_id = fc.category_id
+        WHERE fc.film_id = #{filmId}
+    </select>
+</mapper>

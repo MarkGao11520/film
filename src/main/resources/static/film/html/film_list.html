@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>电影搜索</title>
+    <link type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../js/url.js"></script>
+    <script src="../js/network.js"></script>
+    <script src="../js/film_list.js"></script>
+</head>
+<body>
+
+<div class="container well-lg" style="width: 80%">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="#">电影搜索</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" id="language" name="language" class="dropdown-toggle" data-toggle="dropdown">语言<strong class="caret"></strong></a>
+                            <ul class="dropdown-menu" id="dropdown-menu_language">
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" id="releaseYear" name="releaseYear" class="dropdown-toggle" data-toggle="dropdown">发行年份<strong class="caret"></strong></a>
+                            <ul class="dropdown-menu" id="dropdown-menu_releaseYear">
+                                <li><a href="#" onclick="changeSelect('releaseYear','2001','2001')">2001</a></li>
+                                <li><a href="#" onclick="changeSelect('releaseYear','2002','2002')">2002</a></li>
+                                <li><a href="#" onclick="changeSelect('releaseYear','2003','2003')">2003</a></li>
+                                <li><a href="#" onclick="changeSelect('releaseYear','2004','2004')">2004</a></li>
+                                <li><a href="#" onclick="changeSelect('releaseYear','2005','2005')">2005</a></li>
+                                <li><a href="#" onclick="changeSelect('releaseYear','2006','2006')">2006</a></li>
+                                <li><a href="#" onclick="changeSelect('releaseYear','2007','2007')">2007</a></li>
+                                <li><a href="#" onclick="changeSelect('releaseYear','2008','2008')">2008</a></li>
+                                <li><a href="#" onclick="changeSelect('releaseYear','2009','2009')">2009</a></li>
+                                <li><a href="#" onclick="changeSelect('releaseYear','2010','2010')">2010</a></li>
+                                <li><a href="#" onclick="changeSelect('releaseYear','2011','2011')">2011</a></li>
+                                <li><a href="#" onclick="changeSelect('releaseYear','2012','2012')">2012</a></li>
+                                <li><a href="#" onclick="changeSelect('releaseYear','2013','2013')">2013</a></li>
+                                <li><a href="#" onclick="changeSelect('releaseYear','2014','2014')">2014</a></li>
+                                <li><a href="#" onclick="changeSelect('releaseYear','2015','2015')">2016</a></li>
+                                <li><a href="#" onclick="changeSelect('releaseYear','2016','2016')">2017</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" id="title" class="form-control" placeholder="影片名/描述"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="category" class="form-control" placeholder="分类名" />
+                        </div>
+                        <button type="submit" class="btn btn-default" onclick="search()">搜索</button>
+                    </form>
+                </div>
+
+            </nav>
+
+            <div id="film"></div>
+            <div style="float: right">
+                <ul id="pageination" class="pagination">
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

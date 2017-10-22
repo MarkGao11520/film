@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwf.family.business.language.dao.LanguageRepository">
+    <resultMap id="BaseResultMap" type="com.gwf.family.business.language.entity.Language">
+            <id column="language_id" jdbcType="TINYINT" property="languageId"/>
+            <result column="name" jdbcType="VARCHAR" property="name"/>
+            <result column="last_update" jdbcType="TIMESTAMP" property="lastUpdate"/>
+    </resultMap>
+
+    <!--<cache type="com.gwf.family.business.core.util.RedisCache"/>-->
+</mapper>

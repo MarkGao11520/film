@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwf.family.business.film.dao.FilmRepository">
+    <resultMap id="BaseResultMap" type="com.gwf.family.business.film.entity.Film">
+            <id column="film_id" property="filmId" jdbcType="SMALLINT" />
+            <result column="title" property="title" jdbcType="VARCHAR" />
+            <result column="description" property="description" jdbcType="LONGVARCHAR" />
+            <result column="release_year" property="releaseYear" jdbcType="VARCHAR" />
+            <result column="language_id" property="languageId" jdbcType="TINYINT" />
+            <result column="original_language_id" property="originalLanguageId" jdbcType="TINYINT" />
+            <result column="rental_duration" property="rentalDuration" jdbcType="TINYINT" />
+            <result column="rental_rate" property="rentalRate" jdbcType="DECIMAL" />
+            <result column="length" property="length" jdbcType="SMALLINT" />
+            <result column="replacement_cost" property="replacementCost" jdbcType="DECIMAL" />
+            <result column="rating" property="rating" jdbcType="CHAR" />
+            <result column="special_features" property="specialFeatures" jdbcType="CHAR" />
+            <result column="last_update" property="lastUpdate" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <resultMap id="filmResultResultMap" type="com.gwf.family.business.film.dto.FilmResult">
+            <id column="film_id" property="filmId" jdbcType="SMALLINT" />
+            <result column="title" property="title" jdbcType="VARCHAR" />
+            <result column="description" property="description" jdbcType="LONGVARCHAR" />
+            <result column="release_year" property="releaseYear" jdbcType="VARCHAR" />
+            <result column="name" property="language" jdbcType="VARCHAR" />
+            <association column="film_id" property="categoryList" select="com.gwf.family.business.category.dao.CategoryRepository.findByFilmId"></association>
+            <association column="film_id" property="actorList" select="com.gwf.family.business.actor.dao.ActorRepository.findByFilmId"></association>
+    </resultMap>
+
+    <!--<cache type="com.gwf.family.business.core.util.RedisCache"/>-->
+        <select id="findByQueryCondition" resultMap="filmResultResultMap">
+                SELECT
+                        f.film_id,f.title,f.description,f.release_year,l.name
+                FROM
+                film f
+                    LEFT JOIN film_category fc ON f.film_id = fc.film_id
+                    LEFT JOIN category c ON fc.category_id = c.category_id
+                    LEFT JOIN language l ON f.language_id = l.language_id
+                WHERE
+                    1=1
+                    <if test="languageId!=null">
+                        <if test="languageId!=''" >
+                        and f.language_id = #{languageId}
+                        </if>
+                    </if>
+                    <if test="category!=null">
+                        <if test="category!=''">
+                        AND c.NAME LIKE CONCAT(CONCAT('%', #{category}), '%')
+                        </if>
+                    </if>
+                    <if test="releaseYear!=null">
+                        AND f.release_year = #{releaseYear}
+                    </if>
+                    <if test="title!=null">
+                        AND (
+                                f.description LIKE CONCAT(CONCAT('%', #{title}), '%')
+                                OR f.title LIKE  CONCAT(CONCAT('%', #{title}), '%')
+                        )
+                    </if>
+        </select>
+
+        <select id="findByActorId" resultMap="filmResultResultMap">
+                SELECT
+                        f.film_id,f.title,f.description,f.release_year,l.name
+                FROM
+                        film f
+                        LEFT JOIN language l ON f.language_id = l.language_id
+                        LEFT JOIN film_actor fa ON f.film_id =  fa.film_id
+                WHERE
+                        fa.actor_id = #{actorId}
+
+        </select>
+</mapper>

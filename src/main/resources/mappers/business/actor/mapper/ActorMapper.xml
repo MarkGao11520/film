@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwf.family.business.actor.dao.ActorRepository">
+    <resultMap id="BaseResultMap" type="com.gwf.family.business.actor.entity.Actor">
+            <id column="actor_id" jdbcType="INTEGER" property="actorId"/>
+            <result column="first_name" jdbcType="VARCHAR" property="firstName"/>
+            <result column="last_name" jdbcType="VARCHAR" property="lastName"/>
+            <result column="last_update" jdbcType="TIMESTAMP" property="lastUpdate"/>
+    </resultMap>
+
+    <select id="findByFilmId" resultMap="BaseResultMap">
+        SELECT a.*
+        FROM actor a LEFT JOIN film_actor fa
+        ON a.actor_id = fa.actor_id
+        WHERE fa.film_id = #{filmId}
+    </select>
+    <!--<cache type="com.gwf.family.business.core.util.RedisCache"/>-->
+</mapper>
